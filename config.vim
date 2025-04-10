@@ -169,10 +169,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "Buffer switching
 nnoremap \ :ls<CR>:buffer<Space>
 
-"Transformer manager
-nnoremap . :echo system("t lvim")<CR>:.!t t<Space>
-vnoremap . :<BS><BS><BS><BS><BS>echo system("t lvim")<CR>:'<,'>!t t<Space>
-
 "Quicksave
 "=========
 "Save file quickly
@@ -251,3 +247,8 @@ vmap <C-x> :!$VIMHOME/bashexec.sh<cr>
 "========================================
 let c_no_bracket_error=1
 let c_no_curly_error=1
+
+
+"Disable folding for vim markdown
+"======================================
+let g:vim_markdown_folding_disabled = 1
