@@ -184,6 +184,7 @@ let g:switch_definitions =
       \   g:switch_builtins.ampersands,
       \   g:switch_builtins.capital_true_false,
       \   g:switch_builtins.true_false,
+      \   ['[ ]', '[x]'],
       \ ]
 
 autocmd FileType eruby let b:switch_definitions =
