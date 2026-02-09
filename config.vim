@@ -184,6 +184,11 @@ nnoremap <Leader>n :enew<CR>
 "closing windows
 nnoremap <Leader>q :bdelete<CR>
 
+"If we just opened a single file, then change behavior of leader Q
+if $REMOTEMODE ==# 'local'
+    nnoremap <Leader>q :wq<CR>
+endif
+
 "Window switch
 "============
 "Make movement between
