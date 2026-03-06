@@ -184,9 +184,30 @@ nnoremap <Leader>n :enew<CR>
 "closing windows
 nnoremap <Leader>q :bdelete<CR>
 
-"If we just opened a single file, then change behavior of leader Q
-if $REMOTEMODE ==# 'local'
-    nnoremap <Leader>q :wq<CR>
+
+function! CodeSearch(q)
+    call system("FZF_DEFAULT_OPTS='--tmux 80%' g --git-top " . shellescape(expand('%:p')) . " --no-enter-preview " . shellescape(a:q) . " &")
+endfunction
+
+function! CodeSearchV()
+    call CodeSearch(getreg("g"))
+endfunction
+
+function! CodeSearchN()
+    call CodeSearch(expand("<cword>"))
+endfunction
+
+function! FileSearch()
+    call system("FZF_DEFAULT_OPTS='--tmux 80%' f --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
+endfunction
+
+"Launch popup with code search
+"=============================
+if !empty($TMUX)
+    nnoremap <Leader>g :call CodeSearchN()<CR>
+    vnoremap <Leader>g "gy<CR>:call CodeSearchV()<CR>
+    nnoremap <Leader>f :call FileSearch()<CR>
+    vnoremap <Leader>f :call FileSearch()<CR>
 endif
 
 "Window switch
@@ -223,30 +244,22 @@ let g:switch_mapping = "-" "Map :Switch command to -. - is prev line by default 
 let php_var_selector_is_identifier = 1
 
 
-"fzf: https://github.com/junegunn/fzf
-"====================================
-set rtp+=$FZF_HOME
-map <c-p> :FZF<CR>
-
-
-"fzf.vim
-"=======
-nnoremap <silent> <expr> <c-g> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Ag ".expand("<cword>")."\<cr>"
-
-
 "Terminal
 "========
 tnoremap jk <C-\><C-n>
+
 
 "clang-format
 "============
 map <C-l> :py3f $VIMHOME/clang-format.py<cr>
 "map <C-l> :pyf /usr/share/clang/clang-format.py<cr>
 
+
 "Execute current line
 "====================
 nmap <C-x> :.!$VIMHOME/bashexec.sh<cr>
 vmap <C-x> :!$VIMHOME/bashexec.sh<cr>
+
 
 "Fix highlight for compound literals in C
 "========================================
@@ -257,3 +270,40 @@ let c_no_curly_error=1
 "Disable folding for vim markdown
 "======================================
 let g:vim_markdown_folding_disabled = 1
+
+
+"If we just opened a single file, then change behavior of leader Q
+if $REMOTEMODE ==# 'local'
+    nnoremap <Leader>q :wq<CR>
+endif
+
+
+if $REMOTEMODE ==# 'local-readonly'
+    augroup readonly
+        autocmd!
+        autocmd! BufReadPost * setlocal readonly
+    augroup END
+    noremap s <Nop>
+    noremap S <Nop>
+    noremap a <Nop>
+    noremap A <Nop>
+    noremap d <Nop>
+    noremap x <Nop>
+    noremap r <Nop>
+    noremap R <Nop>
+    noremap o <Nop>
+    noremap p <Nop>
+    noremap P <Nop>
+    noremap i <Nop>
+    noremap <Leader>g <Nop>
+    noremap <Leader>n <Nop>
+    nnoremap <Leader>q :qa!<CR>
+    nnoremap q :qa!<CR>
+    nnoremap <Esc> :qa!<CR>
+    nnoremap <C-x> <Nop>
+    vnoremap <C-x> <Nop>
+    set nomodifiable
+    set scrolloff=999
+    set nornu
+    set nu
+endif
