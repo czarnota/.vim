@@ -194,7 +194,25 @@ function! CodeSearchV()
 endfunction
 
 function! CodeSearchN()
-    call CodeSearch(expand("<cword>"))
+    let word = expand("<cword>")
+
+    let pos = winsaveview()
+
+    normal ge
+
+    let prev_word = expand("<cword>")
+
+    call winrestview(pos)
+
+    if prev_word == "struct"
+        let word = prev_word . " " . word . " {"
+    endif
+
+    if prev_word == "enum"
+        let word = prev_word . " " . word . " {"
+    endif
+
+    call CodeSearch(word)
 endfunction
 
 function! FileSearch()
