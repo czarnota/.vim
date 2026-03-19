@@ -54,6 +54,7 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨,spac
 set ttyfast                     "Enable more smooth scrolling by sending more characters into terminal
 set lazyredraw                  "Buffer screen instead of updating all the time
 set signcolumn=yes              "Always show signcolumn - removed flickering effect
+set updatetime=200              "Needed for gitgutter
 set wildmenu                    "Display all matching files when we tab complete
 set path+=**                    "Search down into subfolders
 autocmd FileType tagbar,nerdtree setlocal signcolumn=no "There are certain filetypes that are not supposed to have the column
