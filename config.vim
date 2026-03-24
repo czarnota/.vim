@@ -230,7 +230,7 @@ if !empty($TMUX)
 endif
 
 function! Blame()
-    call system("git blameshow --tmux 80% -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
+    call system("tmux popup -w 80% -h 80% -- git blameshow -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
 endfunction
 
 "Launch popup for blame
