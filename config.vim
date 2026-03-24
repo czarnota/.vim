@@ -217,7 +217,7 @@ function! CodeSearchN()
 endfunction
 
 function! FileSearch()
-    call system("FZF_DEFAULT_OPTS='--tmux 80%' f --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
+    call system("f --tmux 80% --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
 endfunction
 
 "Launch popup with code search
@@ -229,6 +229,15 @@ if !empty($TMUX)
     vnoremap <Leader>f :call FileSearch()<CR>
 endif
 
+function! Blame()
+    call system("git blameshow --tmux 80% -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
+endfunction
+
+"Launch popup for blame
+"======================
+if !empty($TMUX)
+    nnoremap <Leader>w :call Blame()<CR>
+endif
 "Window switch
 "============
 "Make movement between
