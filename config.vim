@@ -105,6 +105,10 @@ set cino=is,(s,m1,N-s,g0
 if has('mouse')
   set mouse=a
 endif
+
+" Disable mouse
+set mouse=
+
 "disable beeping
 set noerrorbells visualbell t_vb=
 if has('autocmd')
@@ -229,15 +233,32 @@ if !empty($TMUX)
     vnoremap <Leader>f :call FileSearch()<CR>
 endif
 
+"Launch popup for blame
+"======================
 function! Blame()
     call system("tmux popup -w 80% -h 80% -- git blameshow -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
 endfunction
-
-"Launch popup for blame
-"======================
 if !empty($TMUX)
     nnoremap <Leader>w :call Blame()<CR>
 endif
+
+let g:MinimalMode = '0'
+function ToggleMinimal()
+    if g:MinimalMode == "1"
+        let g:MinimalMode = "0"
+        set rnu
+        set signcolumn=yes
+        set fillchars=vert:\ 
+    else
+        let g:MinimalMode = "1"
+        set nornu
+        set signcolumn=no
+        set fillchars=eob:\ ,vert:\ 
+    endif
+endfunction
+nnoremap <Leader>0 :call ToggleMinimal()<CR>
+
+
 "Window switch
 "============
 "Make movement between
