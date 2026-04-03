@@ -236,7 +236,7 @@ endif
 "Launch popup for blame
 "======================
 function! Blame()
-    call system("tmux popup -w 80% -h 80% -- git blameshow -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
+    call system("tmux popup -w 80% -h 80% -b rounded -S 'fg=colour244' -- git blameshow -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
 endfunction
 if !empty($TMUX)
     nnoremap <Leader>w :call Blame()<CR>
