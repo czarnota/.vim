@@ -210,7 +210,9 @@ function! CodeSearchN()
     call winrestview(pos)
 
     if prev_word == "struct"
-        let word = prev_word . " " . word . " {"
+        if word != "struct"
+            let word = prev_word . " " . word . " {"
+        endif
     endif
 
     if prev_word == "enum"
