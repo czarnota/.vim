@@ -223,7 +223,7 @@ function! CodeSearchN()
 endfunction
 
 function! FileSearch()
-    call system("f --tmux 80% --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
+    call system("FZF_DEFAULT_OPTS='--tmux 80%' g -f --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
 endfunction
 
 "Launch popup with code search
