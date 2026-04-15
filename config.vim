@@ -222,6 +222,30 @@ function! CodeSearchN()
     call CodeSearch(word)
 endfunction
 
+function! SearchWord()
+    let word = expand("<cword>")
+
+    let pos = winsaveview()
+
+    normal ge
+
+    let prev_word = expand("<cword>")
+
+    call winrestview(pos)
+
+    if prev_word == "struct"
+        if word != "struct"
+            let word = prev_word . " " . word . " {"
+        endif
+    endif
+
+    if prev_word == "enum"
+        let word = prev_word . " " . word . " {"
+    endif
+
+    return word
+endfunction
+
 function! FileSearch()
     call system("FZF_DEFAULT_OPTS='--tmux 80%' g -f --git-top " . shellescape(expand('%:p')) . " --no-enter-preview &")
 endfunction
@@ -238,7 +262,7 @@ endif
 "Launch popup for blame
 "======================
 function! Blame()
-    call system("tmux popup -w 80% -h 80% -b rounded -S 'fg=colour244' -- git blameshow -L " . shellescape(line('.')) . " @ " . shellescape(expand('%:p')) . " &")
+    call system("tmux popup -w 80% -h 80% -b rounded -S 'fg=colour244' -- blame -L " . shellescape(line('.')) . " " . shellescape(expand('%:p')) . " &")
 endfunction
 if !empty($TMUX)
     nnoremap <Leader>w :call Blame()<CR>
