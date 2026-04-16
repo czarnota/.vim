@@ -198,7 +198,7 @@ function! CodeSearchV()
     call CodeSearch(getreg("g"))
 endfunction
 
-function! CodeSearchN()
+function! SearchWord()
     let word = expand("<cword>")
 
     let pos = winsaveview()
@@ -219,7 +219,11 @@ function! CodeSearchN()
         let word = prev_word . " " . word . " {"
     endif
 
-    call CodeSearch(word)
+    return word
+endfunction
+
+function! CodeSearchN()
+    call CodeSearch(SearchWord())
 endfunction
 
 function! FileSearch()
