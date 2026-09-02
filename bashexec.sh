@@ -68,9 +68,32 @@ execute () {
     cat | bash -c "$first"
 }
 
+read_indent () {
+    local stdin="$(cat)"
+    local indent=""
+    for ((i = 0; i < ${#stdin}; ++i)); do
+        if [[ ${stdin:i:1} == " " ]]; then
+            indent+="${stdin:i:1}"
+            continue
+        fi
+        if [[ ${stdin:i:1} == $'\t' ]]; then
+            indent+="${stdin:i:1}"
+            continue
+        fi
+        break
+    done
+    echo "$indent"
+}
+
 if comment="$(extract_comment <<< "$VIM_CONTENTS")"; then
     print_comment <<< "$VIM_CONTENTS"
     execute <<< "$comment"
 else
-    bash <<< "$VIM_CONTENTS"
+    VIM_INDENT="$(read_indent <<< "$VIM_CONTENTS")"
+
+    if [[ -z "$VIM_INDENT" ]]; then
+        bash <<< "$VIM_CONTENTS"
+    else
+        bash <<< "$VIM_CONTENTS" | sed "s/^/${VIM_INDENT}/"
+    fi
 fi
