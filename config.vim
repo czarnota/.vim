@@ -365,3 +365,5 @@ endif
 
 "Export variable so that application know they were run from vim
 let $VIM_INSIDE=1
+let $PATH = $PATH . ':' . stdpath('config') . '/bin'
+
