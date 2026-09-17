@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-printf "%s" "$(date +"%a %b %d %H:%M:%S %Z %Y")"
+printf "%s" "$(LC_ALL=C date)"
 if [[ $# -gt 0 ]]; then
     printf " %s\n" "$*"
 fi
+
