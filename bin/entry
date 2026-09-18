@@ -1,7 +1,42 @@
 #!/usr/bin/env bash
 
-printf "%s" "$(LC_ALL=C date)"
-if [[ $# -gt 0 ]]; then
-    printf " %s\n" "$*"
-fi
+date_tomorrow () {
+    if [[ "$OSTYPE" == *linux* ]]; then
+        date --date="tomorrow 9:00"
+        return
+    fi
+    if [[ "$OSTYPE" == *darwin* ]]; then
+        date -v+1d -v9H -v0M -v0S
+        return
+    fi
+    date
+}
 
+main () {
+    local opt_tomorrow=""
+    while true; do
+        case "$1" in
+            --tomorrow)
+                opt_tomorrow=1
+                shift
+                ;;
+            -*)
+                shift
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
+    if [[ -n "$opt_tomorrow" ]]; then
+        ENTRY_DATE=date_tomorrow
+    fi
+
+    printf "%s" "$(LC_ALL=C ${ENTRY_DATE:-date})"
+    if [[ $# -gt 0 ]]; then
+        printf " %s\n" "$*"
+    fi
+}
+
+main "$@"
