@@ -14,7 +14,10 @@ highlight devlogTimestamp gui=bold cterm=bold
 
 syntax match devlogTodo '^\s*\zs-\s\+\[ \]\s.*$'
 "highlight devlogDone ctermfg=8 guifg=grey gui=strikethrough cterm=strikethrough
-highligh link devlogTodo Todo
+highlight link devlogTodo Todo
+
+syntax match devlogTodoImportant '^\s*\zs-\s\+\[ \]\s\*.*$'
+highlight devlogTodoImportant guibg=#8a0500 ctermbg=160
 
 "syntax match devlogListTodo '^\s*\zs-\s\+\cTODO:\s.*$'
 "highligh link devlogListTodo Todo
