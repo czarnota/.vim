@@ -1,3 +1,13 @@
+" Todo list syntax:
+"
+" - [ ] Not done
+" - [~] In progres
+" - [.] Moved somewhere else / irrelevant
+" - [-] Cancelled
+" - [*] To be addressed later (deferred)
+" - [!] Very important
+" - [x] Done
+"
 if exists("b:current_syntax")
     finish
 endif
@@ -16,8 +26,8 @@ syntax match devlogTodo '^\s*\zs-\s\+\[ \]\s.*$'
 "highlight devlogDone ctermfg=8 guifg=grey gui=strikethrough cterm=strikethrough
 highlight link devlogTodo Todo
 
-syntax match devlogTodoImportant '^\s*\zs-\s\+\[ \]\s\*.*$'
-highlight devlogTodoImportant guibg=#8a0500 ctermbg=160
+syntax match devlogTodoProgress '^\s*\zs-\s\+\[\~\]\s.*$'
+highlight devlogTodoProgress guibg=#8a5000 ctermbg=136
 
 "syntax match devlogListTodo '^\s*\zs-\s\+\cTODO:\s.*$'
 "highligh link devlogListTodo Todo
@@ -44,3 +54,4 @@ syntax match devlogCodeLineChar '^\s\{4,4}\zs\s\{1,1}\ze\s\{3,3}' contained
 highlight devlogCodeLineChar guibg=#3a3a3a ctermbg=237
 
 let b:current_syntax = "devlog"
+
