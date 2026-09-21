@@ -7,6 +7,7 @@
 " - [*] To be addressed later (deferred)
 " - [!] Very important
 " - [x] Done
+" - [?] Unclear
 "
 if exists("b:current_syntax")
     finish
