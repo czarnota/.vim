@@ -4,7 +4,7 @@ end
 vim.b.did_indent_guide = true
 
 local ns = vim.api.nvim_create_namespace('indent_guide_col4')
-vim.api.nvim_set_hl(0, 'IndentGuideCol4', { bg = '#4a4a4a', ctermbg = 237, fg ='#ff0' })
+--vim.api.nvim_set_hl(0, 'IndentGuideCol4', { bg = '#4a4a4a', ctermbg = 237, fg ='#ff0' })
 
 local COL = 4 -- 0-indexed window column => visually the 4th character
 local bufnr = vim.api.nvim_get_current_buf()
