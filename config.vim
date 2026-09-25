@@ -16,6 +16,7 @@
 "Pathogen is used to allow instalation of custom plugins easily
 execute pathogen#infect() 
 
+
 "Misc
 "====
 let mapleader = " "             "Map leader to space - it is more reachable
@@ -366,4 +367,20 @@ endif
 "Export variable so that application know they were run from vim
 let $VIM_INSIDE=1
 let $PATH = $PATH . ':' . stdpath('config') . '/bin'
+
+"Neovim specific plugins
+"=======================
+"nvim-colorizer.lua
+if exists('+termguicolors')
+    if has('nvim')
+lua << EOF
+        require("colorizer").setup {
+            css = {
+                rgb_fn = true
+            }
+        }
+EOF
+    endif
+endif
+
 
