@@ -377,7 +377,8 @@ lua << EOF
         require("colorizer").setup {
             css = {
                 rgb_fn = true
-            }
+            },
+            "lua",
         }
 EOF
     endif
