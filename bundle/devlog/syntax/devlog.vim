@@ -54,7 +54,7 @@ syntax match devlogCodeLineChar '^\s\{4,4}\zs\s\{1,1}\ze\s\{3,3}' contained
 
 highlight devlogCodeLineChar guibg=#3a3a3a ctermbg=237
 
-syntax match devlogTitle '^\n\s\{4,4}\(- \[.\]\)\@![a-zA-Z][A-Z0-9_-?!. ]*\n\n'
+syntax match devlogTitle '^\n\s\{4,4}\(- \[.\]\)\@![a-zA-Z][A-Z0-9_?!. -]*\n\n'
 highlight devlogTitle gui=bold cterm=bold
 
 let b:current_syntax = "devlog"
